@@ -34,9 +34,15 @@ class Book
      */
     private $reviews;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Events::class, mappedBy="book")
+     */
+    private $events;
+
     public function __construct()
     {
         $this->reviews = new ArrayCollection();
+        $this->events = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -92,6 +98,36 @@ class Book
             // set the owning side to null (unless already changed)
             if ($review->getBook() === $this) {
                 $review->setBook(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Events>
+     */
+    public function getEvents(): Collection
+    {
+        return $this->events;
+    }
+
+    public function addEvent(Events $event): self
+    {
+        if (!$this->events->contains($event)) {
+            $this->events[] = $event;
+            $event->setBook($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvent(Events $event): self
+    {
+        if ($this->events->removeElement($event)) {
+            // set the owning side to null (unless already changed)
+            if ($event->getBook() === $this) {
+                $event->setBook(null);
             }
         }
 
