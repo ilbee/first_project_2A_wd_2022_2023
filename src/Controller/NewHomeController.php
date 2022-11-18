@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Book;
+use App\Form\BookType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,6 +24,20 @@ class NewHomeController extends AbstractController
                 'test3' => 'Ceci est un message de test 3',
                 'test4' => 'Ceci est un message de test 4',
             ],
+        ]);
+    }
+
+    /**
+     * @Route("/new/home/book", name="app_new_home_test")
+     */
+    public function editBook(): Response
+    {
+        $book = new Book();
+        $form = $this
+            ->createForm(BookType::class, $book);
+
+        return $this->render('book.html.twig', [
+            'bookForm' => $form->createView(),
         ]);
     }
 }
