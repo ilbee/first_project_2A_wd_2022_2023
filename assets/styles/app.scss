@@ -1,3 +1,15 @@
 body {
-    background-color: #fFffff;
+    background-color: lightgray;
+}
+
+@import "~bootstrap/scss/bootstrap";
+
+.blue {
+    background-color: lightblue;
+}
+
+.alert{
+    background-color: #ca0000;
+    margin: 10px;
+    border-radius: 5px;
 }
